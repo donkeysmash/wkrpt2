@@ -10,19 +10,28 @@ class Wrapper extends React.Component {
       _list.push({
         age: i,
         name: 'ken',
-        toPass: 'meh'
+        toPass: 'meh',
+        notToPass: 'bleh'
       });
     }
 
     this.state = {
       currentList: _list
     };
-    this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.handlePass = this.handlePass.bind(this);
+    this.handleNotPass = this.handleNotPass.bind(this);
   }
 
-  handleButtonClick() {
+  handlePass() {
     this.setState(state => {
-      state.currentList[0].toPass = 'changed'
+      state.currentList[0].toPass = 'changed';
+      return state;
+    });
+  }
+
+  handleNotPass() {
+    this.setState(state => {
+      state.currentList[0].notToPass = 'chengaed';
       return state;
     });
   }
@@ -30,14 +39,15 @@ class Wrapper extends React.Component {
   render() {
     const { numRows } = this.props;
     const toRender = this.state.currentList.map(e => {
-      const { age, name, toPass } = e;
+      const { age, name, toPass, notToPass } = e;
       return (
-        <Donkey key={age} age={age} name={name} toPass={toPass} />
+        <Donkey key={age} age={age} name={name} toPass={toPass} notToPass={notToPass}/>
       );
     })
     return (
       <div>
-        <button onClick={this.handleButtonClick}>update pass</button>
+        <button onClick={this.handlePass}>update pass</button>
+        <button onClick={this.handleNotPass}>update Not</button>
         <div>{numRows}</div>
         <div>
           {toRender}

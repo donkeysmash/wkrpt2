@@ -17932,22 +17932,32 @@ var Wrapper = function (_React$Component) {
       _list.push({
         age: i,
         name: 'ken',
-        toPass: 'meh'
+        toPass: 'meh',
+        notToPass: 'bleh'
       });
     }
 
     _this.state = {
       currentList: _list
     };
-    _this.handleButtonClick = _this.handleButtonClick.bind(_this);
+    _this.handlePass = _this.handlePass.bind(_this);
+    _this.handleNotPass = _this.handleNotPass.bind(_this);
     return _this;
   }
 
   _createClass(Wrapper, [{
-    key: 'handleButtonClick',
-    value: function handleButtonClick() {
+    key: 'handlePass',
+    value: function handlePass() {
       this.setState(function (state) {
         state.currentList[0].toPass = 'changed';
+        return state;
+      });
+    }
+  }, {
+    key: 'handleNotPass',
+    value: function handleNotPass() {
+      this.setState(function (state) {
+        state.currentList[0].notToPass = 'chengaed';
         return state;
       });
     }
@@ -17959,17 +17969,23 @@ var Wrapper = function (_React$Component) {
       var toRender = this.state.currentList.map(function (e) {
         var age = e.age,
             name = e.name,
-            toPass = e.toPass;
+            toPass = e.toPass,
+            notToPass = e.notToPass;
 
-        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__donkey__["a" /* default */], { key: age, age: age, name: name, toPass: toPass });
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__donkey__["a" /* default */], { key: age, age: age, name: name, toPass: toPass, notToPass: notToPass });
       });
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         null,
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'button',
-          { onClick: this.handleButtonClick },
+          { onClick: this.handlePass },
           'update pass'
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'button',
+          { onClick: this.handleNotPass },
+          'update Not'
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'div',
@@ -18021,12 +18037,31 @@ var Donkey = function (_React$Component) {
   }
 
   _createClass(Donkey, [{
-    key: 'render',
-    value: function render() {
+    key: 'shouldComponentUpdate',
+    value: function shouldComponentUpdate(props, state) {
       var _props = this.props,
           name = _props.name,
           age = _props.age,
-          rest = _objectWithoutProperties(_props, ['name', 'age']);
+          toPass = _props.toPass;
+
+      if (name !== props.name) {
+        return true;
+      }
+      if (age !== props.age) {
+        return true;
+      }
+      if (toPass !== props.toPass) {
+        return true;
+      }
+      return false;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props2 = this.props,
+          name = _props2.name,
+          age = _props2.age,
+          rest = _objectWithoutProperties(_props2, ['name', 'age']);
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
